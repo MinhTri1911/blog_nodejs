@@ -19,14 +19,6 @@ router.get('/', function (req, res, next) {
   _controllers2.default.HomeController.index(req, res);
 });
 
-// router.get('/login', function (req, res) {
-//   Controller.LoginController.index(req,res)
-// })
-
-// router.get('/register', function (req, res, next) {
-//   Controller.RegisterController.index(req, res)
-// })
-
 router.post('/register', function (req, res, next) {
   _controllers2.default.RegisterController.store(req, res);
 });

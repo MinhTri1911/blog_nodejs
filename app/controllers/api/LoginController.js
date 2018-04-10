@@ -17,12 +17,14 @@ module.exports = {
 
     async login (req, res, next) {
         try {
+            console.log(req.body)
             return await u.authenUser(req.body.email, req.body.password).then((user) => {
                 if (user !== {}) user.generateAuthToken()
 
-                res.send(user)
+                res.send(user.toJSON())
             })
         } catch (error) {
+            console.log(error)
             return res
                 .status(500)
                 .send(Response.returnError('Error handle', 500))
