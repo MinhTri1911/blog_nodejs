@@ -34,7 +34,7 @@ var UserRepository = function (_BaseRepository) {
     _createClass(UserRepository, [{
         key: 'authenUser',
         value: async function authenUser(email, password) {
-            return await this._model.find({ email: email }).then(function (result) {
+            return await this.find({ email: email }).then(function (result) {
                 return _bcryptjs2.default.compare(password, result[0].password).then(function (res) {
                     if (res) return result[0];
 

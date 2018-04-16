@@ -1,12 +1,14 @@
 const domain = 'http://localhost:3000/'
 class Request {
     constructor () {
+        this.headers = {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Accept': 'application/json'
+        }
+
         if (localStorage.getItem('x-auth')) {
-            this.headers = {
-                'x-auth': localStorage.getItem('x-auth'),
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Access-Control-Allow-Origin': '*'
-            }
+            this.headers['x-auth'] = localStorage.getItem('x-auth')
         }
     }
 
@@ -36,8 +38,9 @@ class Request {
             return await fetch(domain + url, {
                 method: 'post',
                 headers: this.headers,
-                body: param
-            }).then(res => res.json())
+                body: JSON.stringify(param)
+            })
+            .then(res => res.json())
             .then(
                 (result) => {
                     return result

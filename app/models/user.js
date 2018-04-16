@@ -39,12 +39,17 @@ let UserSchema = new mongoose.Schema({
 	}]
 })
 
-// UserSchema.methods.toJSON = function () {
-// 	let user = this
-// 	let userObject = user.toObject()
-
-// 	return _.pick(userObject, ['_id', 'email'])
-// }
+UserSchema.methods.toJSON = function() {
+	let obj = this
+	// delete obj.password
+	console.log(obj.password)
+	return {
+		'email': obj.email,
+		'name': obj.name,
+		'avatar': obj.avatar,
+		'tokens': obj.tokens
+	}
+}
 
 UserSchema.methods.generateAuthToken = function () {
 	let user = this
@@ -60,7 +65,7 @@ UserSchema.methods.generateAuthToken = function () {
 }
 
 UserSchema.pre('save', function (next) {
-	let user = this;
+	let user = this
 
 	if (user.isModified('password')) {
 		bcrypt.hash(user.password, 10, function (err, hash) {

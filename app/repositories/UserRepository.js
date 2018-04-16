@@ -7,7 +7,7 @@ export default class UserRepository extends BaseRepository {
     }
 
     async authenUser (email, password) {
-        return await this._model.find({email: email}).then((result) => {
+        return await this.find({email: email}).then((result) => {
             return bcrypt.compare(password, result[0].password).then(function (res) {
                 if (res) return result[0]
 
@@ -25,7 +25,7 @@ export default class UserRepository extends BaseRepository {
     }
 
     async registerUser (data) {
-        let userCreate =  this.create(data).then((res) => {
+        let userCreate = this.create(data).then((res) => {
             let currentUser = this.find({email: data.email}).then((user) => {
                 if (!user[0]) throw new Error('Not found user')
 

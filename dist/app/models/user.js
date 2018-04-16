@@ -51,12 +51,17 @@ var UserSchema = new _mongoose2.default.Schema({
 	}]
 });
 
-// UserSchema.methods.toJSON = function () {
-// 	let user = this
-// 	let userObject = user.toObject()
-
-// 	return _.pick(userObject, ['_id', 'email'])
-// }
+UserSchema.methods.toJSON = function () {
+	var obj = this;
+	// delete obj.password
+	console.log(obj.password);
+	return {
+		'email': obj.email,
+		'name': obj.name,
+		'avatar': obj.avatar,
+		'tokens': obj.tokens
+	};
+};
 
 UserSchema.methods.generateAuthToken = function () {
 	var user = this;

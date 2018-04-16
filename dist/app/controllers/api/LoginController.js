@@ -24,12 +24,14 @@ module.exports = {
     },
     login: async function login(req, res, next) {
         try {
+            console.log(req.body);
             return await u.authenUser(req.body.email, req.body.password).then(function (user) {
                 if (user !== {}) user.generateAuthToken();
 
-                res.send(user);
+                res.send(user.toJSON());
             });
         } catch (error) {
+            console.log(error);
             return res.status(500).send(_Response2.default.returnError('Error handle', 500));
         }
     },
